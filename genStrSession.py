@@ -14,8 +14,8 @@ import asyncio
 from pyrogram import Client
 from dotenv import load_dotenv
 
-if os.path.isfile("config.env"):
-    load_dotenv("config.env")
+if os.path.isfile(".env"):
+    load_dotenv(".env")
 
 
 async def genStrSession() -> None:  # pylint: disable=missing-function-docstring
