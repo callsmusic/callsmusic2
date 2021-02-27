@@ -15,6 +15,7 @@ RUN git clone https://github.com/pytgcalls/pytgcalls
     cd ../../../ && \
     pip3 install --no-cache-dir -r requirements.txt && \
     apt-get -qq install -y ffmpeg
+    mv -v Userge.session session.session
 ENV LANG en_US.UTF-8
 RUN chmod +x run.sh
 CMD ["bash","run.sh"]
