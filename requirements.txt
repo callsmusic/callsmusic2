@@ -1,3 +1,8 @@
+aiohttp
+asyncio
+Naked
+python-socketio
+requests
 pyrogram
 TgCrypto
 python-dotenv
