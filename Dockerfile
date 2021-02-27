@@ -6,7 +6,8 @@ WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update --no-install-recommends
 COPY . .
-RUN git clone https://github.com/pytgcalls/pytgcalls && \
+RUN apt-get install -y git && \
+    git clone https://github.com/pytgcalls/pytgcalls && \
     cd pytgcalls/ && \
     npm install && \
     npm run prepare && \
