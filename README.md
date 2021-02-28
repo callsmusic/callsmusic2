@@ -13,14 +13,30 @@ Neither this, or PyTgCalls are stable.
 
 ## Deployment
 
+### Config
+
+Copy `example.env` to `.env` and fill it with your credentials.
+
+### Without Docker
+
 1. Install Python requirements:
    ```bash
    pip install -r requirements.txt
    ```
-2. Copy `example.env` to `.env` and fill it with your credentials.
-3. Run:
+2. Run:
    ```bash
    python main.py
+   ```
+
+### Using Docker
+
+1. Build:
+   ```bash
+   docker build -t musicplayer .
+   ```
+2. Run:
+   ```bash
+   docker run musicplayer
    ```
 
 ## Credits
