@@ -2,7 +2,7 @@
 
 ## Note
 
-Neither this, or PyTgCalls are stable.
+Neither this, or PyTgCalls are fully stable.
 
 ## Requirements
 
