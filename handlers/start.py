@@ -9,7 +9,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        """👋🏻 Hi {message.from_user.first_name}!
+        f"""<b>👋🏻 Hi {message.from_user.first_name}!</b>
 
 I am SU Music Player, an open-source bot that lets you play music in your Telegram groups.
 
