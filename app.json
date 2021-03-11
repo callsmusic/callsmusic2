@@ -1,0 +1,45 @@
+{
+  "name":  "Group Music VC",
+  "description": "A telegram bot which plays songs in Telegram's voice chat.",
+  "repository": "https://github.com/suprojects/CallsMusic",
+  "keywords": ["Music","telegram","telegram bot","bot","pyrogram","voice chat","music player"],
+  "success_url": "https://t.me/telegram",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Your bot token from @Botfather",
+      "value": ""
+    },
+    "API_ID": {
+      "description": "Get this value from my.telegram.org",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Get this value from my.telegram.org",
+      "value": ""
+    },
+    "SESSION_NAME": {
+      "description": "Session Name",
+      "value": ""
+    },
+    "SUDO_USERS": {
+      "description": "Add SUDO users' ID.",
+      "value": ""
+    },
+    "DURATION_LIMIT": {
+      "description": "Add Duration Time",
+      "value": ""
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+     }
+  ],
+  "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+
+}
