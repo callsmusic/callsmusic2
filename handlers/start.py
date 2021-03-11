@@ -9,24 +9,39 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>👋🏻 Hi {message.from_user.first_name}!</b>
+        f"""<b>👋🏻 Hai {message.from_user.first_name}!</b>
 
-I am SU Music Player, an open-source bot that lets you play music in your Telegram groups.
-
-Use the buttons below to know more about me.""",
+Saya bisa memutar musik melalui obrolan suara digrub Telegram anda.
+Gunakan tombol di bawah untuk mengetahui lebih banyak tentang saya dan
+Jangan lupa baca Cara Penggunaan dan Frequently Asked Questions! Untuk dapat menggunakan saya.""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "⚒ Source code", url="https://t.me/SuMusicPlayer"
+                        "⚒ Pengembang", url="https://t.me/hanzprjct"
                     )
                 ],
-                [
+            [
                     InlineKeyboardButton(
-                        "💬 Group", url="https://t.me/su_Chats"
+                        "📖 Cara Penggunaan", url="https://bit.ly/3escfn3"
+                    ),
+                ],
+   [
+                    InlineKeyboardButton(
+                        "🗣️ Frequently Asked Questions", url="https://telegra.ph/Frequently-Asked-Questions-03-10"
+                    ),
+                ],
+            [
+                    InlineKeyboardButton(
+                        "💬 Group", url="https://t.me/AnnabelleSupport"
+                    ),
+                ],
+            [
+                    InlineKeyboardButton(
+                        "📢 Channel", url="https://t.me/AnnabelleUpdates"
                     ),
                     InlineKeyboardButton(
-                        "Channel 🔈", url="https://t.me/su_Bots"
+                        "💸 Donasi", url="https://trakteer.id/hanzerge"
                     )
                 ]
             ]
@@ -41,15 +56,15 @@ Use the buttons below to know more about me.""",
 )
 async def start(client: Client, message: Message):
     await message.reply_text(
-        "💁🏻‍♂️ Do you want to search for a YouTube video?",
+        "💁🏻‍♂️ Apakah kamu ingin mencari sebuah lagu?",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "✅ Yes", switch_inline_query_current_chat=""
+                        "✅ Iya", switch_inline_query_current_chat=""
                     ),
                     InlineKeyboardButton(
-                        "No ❌", callback_data="close"
+                        "Tidak ❌", callback_data="close"
                     )
                 ]
             ]
