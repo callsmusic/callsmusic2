@@ -1,4 +1,4 @@
-# Voice Chat Music bot is a bot to play music in voice chats
+# Voice Calls Music is a bot to play music in voice chats
 
 ## Note
 
