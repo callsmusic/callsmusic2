@@ -5,14 +5,14 @@ from pyrogram.types import Message
 
 import callsmusic
 
-import sira
+import queues
 import cache.admins
 
-from helpers.filters import group_command
+from helpers.filters import command
 from helpers.wrappers import errors, admins_only
 
 
-@Client.on_message(group_command(["pause", "p"]))
+@Client.on_message(command(["pause", "p"]))
 @errors
 @admins_only
 async def pause(_, message: Message):
@@ -27,7 +27,7 @@ async def pause(_, message: Message):
         await message.reply_text("⏸ Paused.")
 
 
-@Client.on_message(group_command(["resume", "r"]))
+@Client.on_message(command(["resume", "r"]))
 @errors
 @admins_only
 async def resume(_, message: Message):
@@ -42,7 +42,7 @@ async def resume(_, message: Message):
         await message.reply_text("▶️ Resumed.")
 
 
-@Client.on_message(group_command(["stop", "s"]))
+@Client.on_message(command(["stop", "s"]))
 @errors
 @admins_only
 async def stop(_, message: Message):
@@ -50,7 +50,7 @@ async def stop(_, message: Message):
         await message.reply_text("❕ Nothing is streaming.")
     else:
         try:
-            sira.clear(message.chat.id)
+            queues.clear(message.chat.id)
         except queue.Empty:
             pass
 
@@ -58,24 +58,24 @@ async def stop(_, message: Message):
         await message.reply_text("⏹ Stopped streaming.")
 
 
-@Client.on_message(group_command(["skip", "f"]))
+@Client.on_message(command(["skip", "f"]))
 @errors
 @admins_only
 async def skip(_, message: Message):
     if message.chat.id not in callsmusic.pytgcalls.active_calls:
         await message.reply_text("❕ Nothing is playing to skip.")
     else:
-        sira.task_done(message.chat.id)
+        queues.task_done(message.chat.id)
 
-        if sira.is_empty(message.chat.id):
+        if queues.is_empty(message.chat.id):
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
         else:
-            callsmusic.pytgcalls.change_stream(message.chat.id, sira.get(message.chat.id)["file_path"])
+            callsmusic.pytgcalls.change_stream(message.chat.id, queues.get(message.chat.id)["file_path"])
 
         await message.reply_text("⏩ Skipped the current song.")
 
 
-@Client.on_message(group_command("admincache"))
+@Client.on_message(command("admincache"))
 @errors
 @admins_only
 async def admincache(_, message: Message):

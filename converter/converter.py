@@ -10,9 +10,13 @@ async def convert(file_path: str) -> str:
     out[-1] = "raw"
     out = ".".join(out)
     out = path.basename(out)
+    out = path.join("raw_files", out)
+
+    if path.isfile(out):
+        return out
 
     proc = await asyncio.create_subprocess_shell(
-        f"ffmpeg -y -i {file_path} -f s16le -ac 1 -ar 48000 -acodec pcm_s16le raw_files/{out}",
+        f"ffmpeg -y -i {file_path} -f s16le -ac 1 -ar 48000 -acodec pcm_s16le {out}",
         asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE
     )
@@ -22,4 +26,4 @@ async def convert(file_path: str) -> str:
     if proc.returncode != 0:
         raise FFmpegReturnCodeError("FFmpeg did not return 0")
 
-    return f"raw_files/{out}"
+    return {out}
