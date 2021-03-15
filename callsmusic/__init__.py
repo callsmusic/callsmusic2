@@ -1,1 +1,1 @@
-from .tgcalls import pytgcalls, run
+from .callsmusic import pytgcalls, run

@@ -5,7 +5,7 @@ import config
 import queues
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
-pytgcalls = PyTgCalls(client, 1512, 2)
+pytgcalls = PyTgCalls(client)
 
 
 @pytgcalls.on_stream_end()
