@@ -1,4 +1,4 @@
-# SU Music Player — The first open-source PyTgCalls based Pyrogram bot to play music in voice chats
+# SU Music Player — The first alah tai open-source PyTgCalls based Pyrogram bot to play music in voice chats
 
 ## Requirements
 
@@ -35,7 +35,7 @@ Copy `example.env` to `.env` and fill it with your credentials.
    ```
 
 ### Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/suprojects/CallsMusicHeroku/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/callsmusic/CallsMusic/)
 
 
 ## Credits
