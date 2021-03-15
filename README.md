@@ -1,15 +1,10 @@
 # SU Music Player — The first open-source PyTgCalls based Pyrogram bot to play music in voice chats
 
-## Note
-
-Neither this, or PyTgCalls are fully stable.
-
 ## Requirements
 
 - FFmpeg
-- NodeJS [nodesource.com](https://nodesource.com/)
+- NodeJS 15+
 - Python 3.7+
-- [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 
 ## Deployment
 
@@ -21,7 +16,7 @@ Copy `example.env` to `.env` and fill it with your credentials.
 
 1. Install Python requirements:
    ```bash
-   pip install -r requirements.txt
+   pip install -U -r requirements.txt
    ```
 2. Run:
    ```bash
