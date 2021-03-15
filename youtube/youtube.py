@@ -1,3 +1,5 @@
+from os import path
+
 from youtube_dl import YoutubeDL
 
 from config import DURATION_LIMIT
@@ -22,4 +24,4 @@ def download(url: str) -> str:
         )
 
     ydl.download([url])
-    return f"downloads/{info['id']}.{info['ext']}"
+    return path.join("downloads", f"{info['id']}.{info['ext']}")
