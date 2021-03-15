@@ -1,12 +1,11 @@
 from pyrogram import Client
-from pytgcalls.pytgcalls import PyTgCalls
+from pytgcalls import PyTgCalls
 
-import sira
 import config
-
+import sira
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
-pytgcalls = PyTgCalls(client, 1512, False)
+pytgcalls = PyTgCalls(client, 1512, 2)
 
 
 @pytgcalls.on_stream_end()

@@ -1,80 +1,86 @@
-from pyrogram import Client, filters
+import queue
+
+from pyrogram import Client
 from pyrogram.types import Message
 
-import tgcalls
+import callsmusic
+
 import sira
-from cache.admins import set
+import cache.admins
+
+from helpers.filters import group_command
 from helpers.wrappers import errors, admins_only
 
 
-@Client.on_message(
-    filters.command("pause")
-    & filters.group
-    & ~ filters.edited
-)
+@Client.on_message(group_command(["pause", "p"]))
 @errors
 @admins_only
-async def pause(client: Client, message: Message):
-    tgcalls.pytgcalls.pause_stream(message.chat.id)
-    await message.reply_text("⏸ Paused.")
-
-
-@Client.on_message(
-    filters.command("resume")
-    & filters.group
-    & ~ filters.edited
-)
-@errors
-@admins_only
-async def resume(client: Client, message: Message):
-    tgcalls.pytgcalls.resume_stream(message.chat.id)
-    await message.reply_text("▶️ Resumed.")
-
-
-@Client.on_message(
-    filters.command(["stop", "end"])
-    & filters.group
-    & ~ filters.edited
-)
-@errors
-@admins_only
-async def stop(client: Client, message: Message):
-    try:
-        sira.clear(message.chat.id)
-    except:
-        pass
-
-    tgcalls.pytgcalls.leave_group_call(message.chat.id)
-    await message.reply_text("⏹ Stopped streaming.")
-
-
-@Client.on_message(
-    filters.command(["skip", "next"])
-    & filters.group
-    & ~ filters.edited
-)
-@errors
-@admins_only
-async def skip(client: Client, message: Message):
-    chat_id = message.chat.id
-
-    sira.task_done(chat_id)
-
-    if sira.is_empty(chat_id):
-        tgcalls.pytgcalls.leave_group_call(chat_id)
+async def pause(_, message: Message):
+    if (
+            message.chat.id not in callsmusic.pytgcalls.active_calls
+    ) or (
+            callsmusic.pytgcalls.active_calls[message.chat.id] == 'paused'
+    ):
+        await message.reply_text("❕ Nothing is playing.")
     else:
-        tgcalls.pytgcalls.change_stream(
-            chat_id, sira.get(chat_id)["file_path"]
-        )
-
-    await message.reply_text("⏩ Skipped the current song.")
+        callsmusic.pytgcalls.pause_stream(message.chat.id)
+        await message.reply_text("⏸ Paused.")
 
 
-@Client.on_message(
-    filters.command("admincache")
-)
+@Client.on_message(group_command(["resume", "r"]))
 @errors
 @admins_only
-async def admincache(client, message: Message):
-    set(message.chat.id, [member.user for member in await message.chat.get_members(filter="administrators")])
-    await message.reply_text("❇️ Admin cache refreshed!")
+async def resume(_, message: Message):
+    if (
+            message.chat.id not in callsmusic.pytgcalls.active_calls
+    ) or (
+            callsmusic.pytgcalls.active_calls[message.chat.id] == 'playing'
+    ):
+        await message.reply_text("❕ Nothing is paused.")
+    else:
+        callsmusic.pytgcalls.resume_stream(message.chat.id)
+        await message.reply_text("▶️ Resumed.")
+
+
+@Client.on_message(group_command(["stop", "s"]))
+@errors
+@admins_only
+async def stop(_, message: Message):
+    if message.chat.id not in callsmusic.pytgcalls.active_calls:
+        await message.reply_text("❕ Nothing is streaming.")
+    else:
+        try:
+            sira.clear(message.chat.id)
+        except queue.Empty:
+            pass
+
+        callsmusic.pytgcalls.leave_group_call(message.chat.id)
+        await message.reply_text("⏹ Stopped streaming.")
+
+
+@Client.on_message(group_command(["skip", "f"]))
+@errors
+@admins_only
+async def skip(_, message: Message):
+    if message.chat.id not in callsmusic.pytgcalls.active_calls:
+        await message.reply_text("❕ Nothing is playing to skip.")
+    else:
+        sira.task_done(message.chat.id)
+
+        if sira.is_empty(message.chat.id):
+            callsmusic.pytgcalls.leave_group_call(message.chat.id)
+        else:
+            callsmusic.pytgcalls.change_stream(message.chat.id, sira.get(message.chat.id)["file_path"])
+
+        await message.reply_text("⏩ Skipped the current song.")
+
+
+@Client.on_message(group_command("admincache"))
+@errors
+@admins_only
+async def admincache(_, message: Message):
+    cache.admins.set(
+        message.chat.id,
+        [member.user for member in await message.chat.get_members(filter="administrators")]
+    )
+    await message.reply_text("❇ Admin cache refreshed!")

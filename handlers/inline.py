@@ -8,7 +8,7 @@ from youtubesearchpython import VideosSearch
 
 
 @Client.on_inline_query()
-async def search(client: Client, query: InlineQuery):
+async def inline(client: Client, query: InlineQuery):
     answers = []
     search_query = query.query.lower().strip().rstrip()
 
@@ -21,22 +21,22 @@ async def search(client: Client, query: InlineQuery):
             cache_time=0
         )
     else:
-        videosSearch = VideosSearch(search_query, limit=50)
+        search = VideosSearch(search_query, limit=50)
 
-        for v in videosSearch.result()["result"]:
+        for result in search.result()["result"]:
             answers.append(
                 InlineQueryResultArticle(
-                    title=v["title"],
+                    title=result["title"],
                     description="{}, {} views.".format(
-                        v["duration"],
-                        v["viewCount"]["short"]
+                        result["duration"],
+                        result["viewCount"]["short"]
                     ),
                     input_message_content=InputTextMessageContent(
                         "https://www.youtube.com/watch?v={}".format(
-                            v["id"]
+                            result["id"]
                         )
                     ),
-                    thumb_url=v["thumbnails"][0]["url"]
+                    thumb_url=result["thumbnails"][0]["url"]
                 )
             )
 
