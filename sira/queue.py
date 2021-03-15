@@ -1,54 +1,36 @@
 """
 To prevent conflict with built-in modules, using "sira", the Greek word for "queue".
 """
-from asyncio.queues import QueueEmpty
+from queue import Queue, Empty
 from typing import Dict, Union
-import asyncio
+
+queues: Dict[int, Queue] = {}
 
 
-queues: Dict[str, asyncio.Queue] = {}
-
-
-async def add(chat_id: Union[str, int], file_path: str) -> int:
-    if isinstance(chat_id, int):
-        chat_id = str(chat_id)
-
+def add(chat_id: int, file_path: str) -> int:
     if chat_id not in queues:
-        queues[chat_id] = asyncio.Queue()
+        queues[chat_id] = Queue()
 
-    await queues[chat_id].put(
-        {
-            "file_path": file_path
-        }
-    )
-    return queues[str(chat_id)].qsize()
+    queues[chat_id].put({"file_path": file_path})
+    return queues[chat_id].qsize()
 
 
-def get(chat_id: Union[str, int]) -> Union[Dict[str, str], None]:
-    if isinstance(chat_id, int):
-        chat_id = str(chat_id)
-
+def get(chat_id: int) -> Union[Dict[str, str], None]:
     if chat_id in queues:
         try:
             return queues[chat_id].get_nowait()
-        except asyncio.queues.QueueEmpty:
+        except Empty:
             return None
 
 
-def is_empty(chat_id: Union[str, int]) -> Union[bool, None]:
-    if isinstance(chat_id, int):
-        chat_id = str(chat_id)
-
+def is_empty(chat_id: int) -> Union[bool, None]:
     if chat_id in queues:
         return queues[chat_id].empty()
     else:
         return True
 
 
-def task_done(chat_id: Union[str, int]) -> None:
-    if isinstance(chat_id, int):
-        chat_id = str(chat_id)
-
+def task_done(chat_id: int) -> None:
     if chat_id in queues:
         try:
             queues[chat_id].task_done()
@@ -56,14 +38,11 @@ def task_done(chat_id: Union[str, int]) -> None:
             pass
 
 
-def clear(chat_id: Union[str, int]) -> None:
-    if isinstance(chat_id, int):
-        chat_id = str(chat_id)
-
+def clear(chat_id: int):
     if chat_id in queues:
         if queues[chat_id].empty():
-            raise QueueEmpty("The queue is empty.")
+            raise Empty
         else:
-            queues[chat_id]._queue = []
+            queues[chat_id].queue = []
     else:
-        raise QueueEmpty("The queue is empty.")
+        raise Empty

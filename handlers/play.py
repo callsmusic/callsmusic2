@@ -16,7 +16,7 @@ from helpers.errors import DurationLimitError
     & ~ filters.edited
 )
 @errors
-async def play(client: Client, message_: Message):
+async def play(_, message_: Message):
     audio = (message_.reply_to_message.audio or message_.reply_to_message.voice) if message_.reply_to_message else None
 
     res = await message_.reply_text("🔄 Processing...")
@@ -63,7 +63,7 @@ async def play(client: Client, message_: Message):
         is_playing = False
 
     if is_playing:
-        position = await sira.add(message_.chat.id, file_path)
+        position = sira.add(message_.chat.id, file_path)
         await res.edit_text(f"#️⃣ Queued at position {position}.")
     else:
         await res.edit_text("▶️ Playing...")
