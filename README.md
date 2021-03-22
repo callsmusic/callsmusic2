@@ -46,5 +46,5 @@ Copy `example.env` to `.env` and fill it with your credentials.
 
 ## License
 
-### GNU General Public License v3.0
-[Read more](http://www.gnu.org/licenses/#GPL)
+### GNU Affero General Public License v3.0
+[Read more](http://www.gnu.org/licenses/#AGPL)
