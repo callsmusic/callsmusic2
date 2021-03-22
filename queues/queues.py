@@ -20,7 +20,7 @@ def get(chat_id: int) -> Union[Dict[str, str], None]:
             return None
 
 
-def is_empty(chat_id: int) -> Union[bool, None]:
+def is_empty(chat_id: int) -> bool:
     if chat_id in queues:
         return queues[chat_id].empty()
     else:
