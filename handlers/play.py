@@ -7,12 +7,11 @@ import callsmusic
 
 import converter
 import youtube
-import queues
 
 from config import DURATION_LIMIT
 from helpers.errors import DurationLimitError
 from helpers.filters import command, other_filters
-from helpers.wrappers import errors
+from helpers.decorators import errors
 
 
 @Client.on_message(command("play") & other_filters)
@@ -29,7 +28,8 @@ async def play(_, message: Message):
             )
 
         file_name = audio.file_unique_id + "." + (
-            audio.file_name.split(".")[-1] if not isinstance(audio, Voice) else "ogg"
+            audio.file_name.split(
+                ".")[-1] if not isinstance(audio, Voice) else "ogg"
         )
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
@@ -64,8 +64,9 @@ async def play(_, message: Message):
         file_path = await converter.convert(youtube.download(url))
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
-        position = queues.add(message.chat.id, file_path)
+        position = callsmusic.queues.add(message.chat.id, file_path)
         await res.edit_text(f"#️⃣ Queued at position {position}.")
     else:
         await res.edit_text("▶️ Playing...")
-        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000, callsmusic.pytgcalls.get_cache_peer())
+        callsmusic.pytgcalls.join_group_call(
+            message.chat.id, file_path, 48000, callsmusic.pytgcalls.get_cache_peer())
