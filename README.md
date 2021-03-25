@@ -1,6 +1,6 @@
 # Calls Music Beta — The first open-source PyTgCalls based project
 
-##### Note that "Beta" doesn't mean it's not stable or it's under construction, it is just an identifier.
+##### Note that “Beta” doesn’t mean it’s not stable or it’s under construction, it’s just an identifier.
 
 ## Requirements
 
