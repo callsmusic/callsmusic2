@@ -1,7 +1,5 @@
 # Calls Music 2 — The first open-source PyTgCalls based project
 
-##### Note that “Beta” doesn’t mean it’s not stable or it’s under construction, it’s just an identifier.
-
 ## Requirements
 
 - FFmpeg
