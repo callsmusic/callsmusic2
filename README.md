@@ -1,4 +1,4 @@
-# Calls Music 2 — The first open-source PyTgCalls based project
+# Calls Music 2 — The first open-source [PyTgCalls](https://github.com/pytgcalls/pytgcalls) based project
 
 ## Requirements
 
@@ -52,4 +52,4 @@ Copy `example.env` to `.env` and fill it with your credentials.
 
 ### GNU Affero General Public License v3.0
 
-[Read more](http://www.gnu.org/licenses/#AGPL)
+[Read more](https://www.gnu.org/licenses/#AGPL)
