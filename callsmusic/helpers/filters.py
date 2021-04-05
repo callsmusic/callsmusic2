@@ -14,19 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
+from typing import Union, List
 
-from pyrogram import Client
+from pyrogram import filters
 
+from ..config import COMMAND_PREFIXES
 
-print("Enter your app information from my.telegram.org/apps below.")
-
-
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
+other_filters = filters.group & ~ filters.edited & ~ filters.via_bot & ~ filters.forwarded
+other_filters2 = filters.private & ~ filters.edited & ~ filters.via_bot & ~ filters.forwarded
 
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+def command(commands: Union[str, List[str]]):
+    return filters.command(commands, COMMAND_PREFIXES)

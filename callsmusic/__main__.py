@@ -14,19 +14,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
+from pyrogram import Client as Bot
 
-from pyrogram import Client
-
-
-print("Enter your app information from my.telegram.org/apps below.")
+from .callsmusic import run
+from .config import API_ID, API_HASH, BOT_TOKEN
 
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
+bot = Bot(
+    ":memory:",
+    API_ID,
+    API_HASH,
+    bot_token=BOT_TOKEN,
+    plugins=dict(root="callsmusic.handlers")
+)
 
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+bot.start()
+run()

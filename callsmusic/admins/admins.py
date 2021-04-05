@@ -14,19 +14,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
-
-from pyrogram import Client
+from typing import List, Dict, Union
 
 
-print("Enter your app information from my.telegram.org/apps below.")
+admins: Dict[int, List[int]] = {}
 
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
+def set(chat_id: int, admins_: List[int]):
+    admins[chat_id] = admins_
 
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+def get(chat_id: int) -> Union[List[int], bool]:
+    if chat_id in admins:
+        return admins[chat_id]
+
+    return False

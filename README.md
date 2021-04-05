@@ -20,7 +20,7 @@ Copy `example.env` to `.env` and fill it with your credentials.
    ```
 2. Run:
    ```bash
-   python main.py
+   python -m callsmusic
    ```
 
 ### Using Docker

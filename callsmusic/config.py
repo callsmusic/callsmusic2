@@ -14,19 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
+from os import getenv
 
-from pyrogram import Client
+from dotenv import load_dotenv
 
+load_dotenv()
 
-print("Enter your app information from my.telegram.org/apps below.")
+SESSION_NAME = getenv("SESSION_NAME", "session")
+BOT_TOKEN = getenv("BOT_TOKEN")
 
+API_ID = int(getenv("API_ID"))
+API_HASH = getenv("API_HASH")
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
+DURATION_LIMIT = int(getenv("DURATION_LIMIT", "7"))
 
+COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ !").split())
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))

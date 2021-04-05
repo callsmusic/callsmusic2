@@ -14,19 +14,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
+from os import path
 
-from pyrogram import Client
+from youtube_dl import YoutubeDL
+
+from ..config import DURATION_LIMIT
+from ..helpers.errors import DurationLimitError
+
+ytdl = YoutubeDL(
+    {
+        "format": "bestaudio/best",
+        "geo-bypass": True,
+        "nocheckcertificate": True,
+        "outtmpl": "downloads/%(id)s.%(ext)s",
+    }
+)
 
 
-print("Enter your app information from my.telegram.org/apps below.")
+def download(url: str) -> str:
+    info = ytdl.extract_info(url, False)
+    duration = round(info["duration"] / 60)
 
+    if duration > DURATION_LIMIT:
+        raise DurationLimitError(
+            f"Videos longer than {DURATION_LIMIT} minute(s) aren’t allowed, the provided video is {duration} minute(s)"
+        )
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
-
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    ytdl.download([url])
+    return path.join("downloads", f"{info['id']}.{info['ext']}")

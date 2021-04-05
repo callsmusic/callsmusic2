@@ -14,19 +14,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from os import path
 import asyncio
 
-from pyrogram import Client
+from ..helpers.errors import FFmpegReturnCodeError
 
 
-print("Enter your app information from my.telegram.org/apps below.")
+async def convert(file_path: str) -> str:
+    out = path.basename(file_path)
+    out = out.split(".")
+    out[-1] = "raw"
+    out = ".".join(out)
+    out = path.basename(out)
+    out = path.join("raw_files", out)
 
+    if path.isfile(out):
+        return out
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
+    proc = await asyncio.create_subprocess_shell(
+        f"ffmpeg -y -i {file_path} -f s16le -ac 1 -ar 48000 -acodec pcm_s16le {out}",
+        asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
 
+    await proc.communicate()
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    if proc.returncode != 0:
+        raise FFmpegReturnCodeError("FFmpeg did not return 0")
+
+    return out

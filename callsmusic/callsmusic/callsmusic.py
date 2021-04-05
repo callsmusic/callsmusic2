@@ -14,19 +14,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import asyncio
-
 from pyrogram import Client
+from pytgcalls import PyTgCalls
+
+from .. import config
+from .. import queues
+
+client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
+pytgcalls = PyTgCalls(client)
 
 
-print("Enter your app information from my.telegram.org/apps below.")
+@pytgcalls.on_stream_end()
+def on_stream_end(chat_id: int) -> None:
+    queues.task_done(chat_id)
+
+    if queues.is_empty(chat_id):
+        pytgcalls.leave_group_call(chat_id)
+    else:
+        pytgcalls.change_stream(
+            chat_id, queues.get(chat_id)["file_path"]
+        )
 
 
-async def main():
-    async with Client(":memory:", api_id=int(input("API ID: ")), api_hash=input("API HASH: ")) as app:
-        print(await app.export_session_string())
-
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+run = pytgcalls.run
