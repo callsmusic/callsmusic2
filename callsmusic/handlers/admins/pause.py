@@ -1,11 +1,9 @@
 # Calls Music 2 - Telegram bot for streaming audio in group calls
 # Copyright (C) 2021  Roj Serbest
-
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
-
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -13,5 +11,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from pyrogram import Client
+from pyrogram.types import Message
 
-from .admins import *
+from callsmusic.callsmusic import pause
+from callsmusic.helpers.decorators import authorized_users_only
+from callsmusic.helpers.decorators import errors
+from callsmusic.helpers.filters import command
+from callsmusic.helpers.filters import other_filters
+
+
+@Client.on_message(command('pause') & other_filters)
+@errors
+@authorized_users_only
+async def _(_, message: Message):
+    if pause(message.chat.id):
+        await message.reply_text('Paused!')
+    else:
+        await message.reply_text('Nothing is playing!')

@@ -1,12 +1,14 @@
-.idea/
 .vscode/
-venv/
-
-raw_files/
-downloads/
 __pycache__/
+downloads/
+idea/
+raw_files/
+venv/
+.mypy_cache/
 
 *.session
 *.session-journal
 
 .env
+..env.swp
+.pre-commit-config.yaml

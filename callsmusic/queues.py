@@ -1,11 +1,9 @@
 # Calls Music 2 - Telegram bot for streaming audio in group calls
 # Copyright (C) 2021  Roj Serbest
-
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
-
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -13,9 +11,15 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from asyncio import Queue as _Queue
+from asyncio import QueueEmpty as Empty
+from typing import Dict
+from typing import List
 
-from asyncio import Queue, QueueEmpty as Empty
-from typing import Dict, Union
+
+class Queue(_Queue):
+    _queue: List[dict] = []
+
 
 queues: Dict[int, Queue] = {}
 
@@ -27,12 +31,13 @@ async def put(chat_id: int, **kwargs) -> int:
     return queues[chat_id].qsize()
 
 
-def get(chat_id: int) -> Union[Dict[str, str], None]:
+def get(chat_id: int) -> Dict[str, str]:
     if chat_id in queues:
         try:
             return queues[chat_id].get_nowait()
         except Empty:
-            return None
+            return {}
+    return {}
 
 
 def is_empty(chat_id: int) -> bool:
@@ -54,5 +59,5 @@ def clear(chat_id: int):
         if queues[chat_id].empty():
             raise Empty
         else:
-            queues[chat_id].queue = []
+            queues[chat_id]._queue.clear()
     raise Empty

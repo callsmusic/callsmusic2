@@ -1,8 +1,15 @@
-LICENSE
-README.md
+.mypy_cache/
+.vscode/
+__pycache__/
+downloads/
+idea/
+raw_files/
+venv/
+
+*.session
+*.session-journal
 
 .env
-.gitignore
-
-.git/
-__pycache__/
+..env.swp
+.mypy_cache
+.pre-commit-config.yaml

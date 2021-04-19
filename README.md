@@ -40,13 +40,14 @@ Copy `example.env` to `.env` and fill it with your credentials.
 
 ## ℹ️ Commands
 
-| Command | Description                                  |
-| ------- | -------------------------------------------- |
-| /play   | play the replied audio file or YouTube video |
-| /pause  | pause the audio stream                       |
-| /resume | resume the audio stream                      |
-| /skip   | skip the current audio stream                |
-| /stop   | clear the queue and stop the audio stream    |
+| Command  | Description                                  |
+| -------- | -------------------------------------------- |
+| /play    | play the replied audio file or YouTube video |
+| /pause   | pause the audio stream                       |
+| /resume  | resume the audio stream                      |
+| /skip    | skip the current audio stream                |
+| /stop    | clear the queue and stop the audio stream    |
+| /channel | set chat channel                             |
 
 ## 📄 License
 

@@ -11,18 +11,21 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import asyncio
-
 from pyrogram import Client
+from pyrogram.types import Message
 
-print('Enter your app information from my.telegram.org/apps below.')
+from callsmusic.callsmusic import resume
+from callsmusic.helpers.decorators import authorized_users_only
+from callsmusic.helpers.decorators import errors
+from callsmusic.helpers.filters import command
+from callsmusic.helpers.filters import other_filters
 
 
-async def main():
-    async with Client(':memory:', api_id=int(input('API ID: ')), api_hash=input('API HASH: ')) as app:
-        print(await app.export_session_string())
-
-
-if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+@Client.on_message(command('resume') & other_filters)
+@errors
+@authorized_users_only
+async def _(_, message: Message):
+    if resume(message.chat.id):
+        await message.reply_text('Resumed!')
+    else:
+        await message.reply_text('Nothing is paused!')

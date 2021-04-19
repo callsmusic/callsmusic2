@@ -1,11 +1,9 @@
 # Calls Music 2 - Telegram bot for streaming audio in group calls
 # Copyright (C) 2021  Roj Serbest
-
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
-
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -13,5 +11,17 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from typing import Dict
+from typing import List
 
-from .queues import put, get, is_empty, task_done, clear
+admins: Dict[int, List[int]] = {}
+
+
+def set(chat_id: int, admins_: List[int]):
+    admins[chat_id] = admins_
+
+
+def get(chat_id: int) -> List[int]:
+    if chat_id in admins:
+        return admins[chat_id]
+    return []
