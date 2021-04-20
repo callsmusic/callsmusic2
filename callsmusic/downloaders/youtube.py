@@ -24,6 +24,7 @@ ytdl = YoutubeDL(
         'geo-bypass': True,
         'nocheckcertificate': True,
         'outtmpl': 'downloads/%(id)s.%(ext)s',
+        'quiet': True,
     },
 )
 

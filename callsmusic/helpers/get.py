@@ -31,7 +31,7 @@ def url(message_1: Message) -> Union[str, None]:
     length = -1
 
     for message in messages:
-        if offset:
+        if offset != -1:
             break
 
         if message.entities:
@@ -41,7 +41,7 @@ def url(message_1: Message) -> Union[str, None]:
                     offset, length = entity.offset, entity.length
                     break
 
-    if offset != -1:
+    if offset == -1:
         return None
 
     return text[offset:offset + length]
