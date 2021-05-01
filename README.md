@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This bot needs a Linux system, Node JS version 15 or newer with the packages specified in the `package.json`, ffmpeg, Google Chrome or Chromium to work, a Telegram bot and user account.
+This bot needs a Linux system, Node JS version 15 or newer with the packages specified in the `package.json`, ffmpeg, Google Chrome or Chromium to work.
 
 ## Deployment
 
