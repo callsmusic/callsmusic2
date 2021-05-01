@@ -31,7 +31,8 @@ This bot needs a Linux system, Node JS version 15 or newer with the packages spe
 
 ### Heroku
 
-[Click here](https://heroku.com/deploy?template=https://github.com/callsmusic/callsmusic2)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/callsmusic/callsmusic2)
+- You can generate a string session [here](https://replit.com/@Roj617/GramJSStringSejin).
 
 ## Commands
 
