@@ -1,0 +1,23 @@
+{
+  "name": "callsmusicbot",
+  "version": "1.0.0",
+  "description": "A fancy Telegram bot to stream audio and video in calls.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Roj Serbest",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "input": "^1.0.1",
+    "node-pre-gyp": "^0.17.0",
+    "puppeteer-core": "^9.0.0",
+    "telegraf": "^4.3.0",
+    "telegram": "^1.5.1",
+    "tgcalls": "^0.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.41"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Calls Music 2",
+  "description": "Telegram bot + userbot for streaming audio in group calls.",
+  "keywords": ["telegram", "python"],
+  "repository": "https://github.com/callsmusic/callsmusic2",
+  "stack": "container",
+  "env": {
+    "STRING_SESSION": {
+      "description": "A Telethon session string.",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "A bot token from @BotFather.",
+      "required": true
+    },
+    "API_ID": {
+      "description": "An app ID from https://my.telegram.org/apps.",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "An app hash from https://my.telegram.org/apps.",
+      "required": true
+    }
+  }
+}
