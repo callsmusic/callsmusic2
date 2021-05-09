@@ -1,4 +1,3 @@
-const { joinCall } = require("../userbot/calls");
 const { Connection } = require("./connection");
 
 class Connections {
@@ -13,9 +12,6 @@ class Connections {
       this.connections[chatId].setReadable(readable);
     else {
       this.connections[chatId] = new Connection(chatId);
-      this.connections[chatId].tgcalls.joinVoiceCall = async (payload) => {
-        return await joinCall(chatId, payload);
-      };
       await this.connections[chatId].joinCall(readable);
     }
   }

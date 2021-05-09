@@ -1,4 +1,5 @@
 const { TGCalls, Stream } = require("tgcalls");
+const { joinCall, leaveCall } = require('../userbot/calls');
 const queues = require("../queues");
 
 module.exports.Connection = class {
@@ -11,18 +12,20 @@ module.exports.Connection = class {
     this.chatId = chatId;
     this.playing = false;
     this.tgcalls = new TGCalls();
+    this.tgcalls.joinVoiceCall = async payload => await joinCall(chatId, payload);
   }
 
-  end() {
+  async end() {
     this.playing = false;
     let get = queues.get(this.chatId);
     if (get.readable) this.setReadable(get.readable);
+    else await leaveCall(this.chatId);
   }
 
   async joinCall(readable) {
     this.stream = new Stream(readable, 16, 48000, 1);
     this.stream.on("finish", () => {
-      this.end();
+      await this.end();
     });
     await this.tgcalls.start(this.stream.createTrack());
     this.playing = true;
@@ -47,10 +50,10 @@ module.exports.Connection = class {
     } else return false;
   }
 
-  stop() {
+  async stop() {
     if (!this.stream.finished) {
       this.stream.finish();
-      this.end();
+      await this.end();
       return true;
     } else return false;
   }
