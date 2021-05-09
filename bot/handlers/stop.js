@@ -5,8 +5,7 @@ const queues = require("../../queues");
 
 module.exports = Composer.command("stop", async (ctx) => {
   if (connections.inCall(ctx.chat.id)) {
-    connections.stop(ctx.chat.id);
-    await leaveCall(ctx.chat.id);
+    await connections.stop(ctx.chat.id);
     connections.remove(ctx.chat.id);
     queues.clear(ctx.chat.id);
     await ctx.reply("Stopped!");

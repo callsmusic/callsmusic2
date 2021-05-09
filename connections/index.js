@@ -40,9 +40,9 @@ class Connections {
     } else return 2;
   }
 
-  stop(chatId) {
+  async stop(chatId) {
     if (this.inCall(chatId)) {
-      if (this.connections[chatId].stop()) return 0;
+      if (await this.connections[chatId].stop()) return 0;
       else return 1;
     } else return 2;
   }
