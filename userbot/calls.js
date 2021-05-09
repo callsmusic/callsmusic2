@@ -4,10 +4,12 @@ const calls = {};
 
 module.exports.joinCall = async (chatId, params) => {
   if (!(chatId in calls)) {
-    const fullChat = await client.invoke(
-      new Api.channels.GetFullChannel({
-        channel: await client.getEntity(chatId),
-      })
+    const fullChat = (
+      await client.invoke(
+        new Api.channels.GetFullChannel({
+          channel: await client.getEntity(chatId),
+        })
+      )
     ).fullChat;
     if (!fullChat.call) throw new Error("No voice chat");
     calls[chatId] = fullChat.call;
