@@ -6,7 +6,7 @@
   "stack": "container",
   "env": {
     "STRING_SESSION": {
-      "description": "A GramJS/Telethon string session. You can generate one at https://replit.com/@Roj617/GramJSStringSejin.",
+      "description": "A GramJS/Telethon string session. You can generate one at https://rojserbest.github.io/bssg.",
       "required": true
     },
     "BOT_TOKEN": {
