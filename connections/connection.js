@@ -7,25 +7,30 @@ module.exports.Connection = class {
   playing;
   stream;
   tgcalls;
+  remove;
 
-  constructor(chatId) {
+  constructor(chatId, remove) {
     this.chatId = chatId;
     this.playing = false;
     this.tgcalls = new TGCalls();
     this.tgcalls.joinVoiceCall = async (payload) =>
       await joinCall(chatId, payload);
+    this.remove = remove;
   }
 
   async end() {
     this.playing = false;
     let get = queues.get(this.chatId);
     if (get.readable) this.setReadable(get.readable);
-    else await leaveCall(this.chatId);
+    else {
+      await leaveCall(this.chatId);
+      this.remove();
+    }
   }
 
   async joinCall(readable) {
     this.stream = new Stream(readable, 16, 48000, 1);
-    this.stream.on("finish", this.end);
+    this.stream.on("finish", async () => await this.end());
     await this.tgcalls.start(this.stream.createTrack());
     this.playing = true;
   }
@@ -36,14 +41,14 @@ module.exports.Connection = class {
   }
 
   pause() {
-    if (!this.stream.paused) {
+    if (!this.stream.paused && this.playing) {
       this.stream.pause();
       return true;
     } else return false;
   }
 
   resume() {
-    if (this.stream.paused) {
+    if (this.stream.paused && this.playing) {
       this.stream.pause();
       return true;
     } else return false;

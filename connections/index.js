@@ -11,8 +11,9 @@ class Connections {
     if (chatId in this.connections)
       this.connections[chatId].setReadable(readable);
     else {
-      this.connections[chatId] = new Connection(chatId);
-      await this.connections[chatId].joinCall(readable);
+      const connection = new Connection(chatId, () => this.remove(chatId));
+      await connection.joinCall(readable);
+      this.connections[chatId] = connection;
     }
   }
 
@@ -42,8 +43,10 @@ class Connections {
 
   async stop(chatId) {
     if (this.inCall(chatId)) {
-      if (await this.connections[chatId].stop()) return 0;
-      else return 1;
+      if (await this.connections[chatId].stop()) {
+        this.remove(chatId);
+        return 0;
+      } else return 1;
     } else return 2;
   }
 

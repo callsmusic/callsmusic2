@@ -6,21 +6,18 @@ const ejs = require("ejs");
 const font = fs
   .readFileSync(path.join(__dirname, "Poppins-Regular.ttf"))
   .toString("base64");
-var browser;
 var executablePath = "/usr/bin/chromium";
 
 fs.access(executablePath, (err) => {
   if (err) executablePath = "/usr/bin/google-chrome";
 });
 
-const getBrowser = async () => {
-  if (typeof browser !== "undefined") return browser;
-  browser = await core.launch({
+const newBrowser = async () => {
+  return (browser = await core.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
     executablePath: executablePath,
     headless: true,
-  });
-  return browser;
+  }));
 };
 
 const getHtml = async (type, data) => {
@@ -31,10 +28,11 @@ const getHtml = async (type, data) => {
 };
 
 module.exports.createImage = async (type, data) => {
-  const page = await (await getBrowser()).newPage();
+  const browser = await newBrowser();
+  const page = await browser.newPage();
   page.setViewport({ width: 1280, height: 960 });
   page.setContent(await getHtml(type, data));
   const screenshot = await page.screenshot();
-  page.close();
+  await browser.close();
   return screenshot;
 };

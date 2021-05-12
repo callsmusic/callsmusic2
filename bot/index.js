@@ -1,10 +1,23 @@
-const { Telegraf } = require("telegraf");
+const { Bot } = require("grammy");
 const config = require("../config");
 
-const bot = new Telegraf(config.botToken);
+const bot = new Bot(config.botToken);
 require("./handlers")(bot);
+
+bot.api.config.use((prev, method, payload) => {
+  return prev(method, {
+    ...payload,
+    parse_mode: "HTML",
+  });
+});
+
+bot.catch(async (error) => {
+  if (error.error instanceof Error) {
+    await error.ctx.reply(error.error.toString());
+  }
+});
 
 module.exports.bot = bot;
 module.exports.start = async () => {
-  await bot.launch({ dropPendingUpdates: true });
+  await bot.start({ dropPendingUpdates: true });
 };
