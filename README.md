@@ -10,30 +10,30 @@ This bot needs a Linux system, Node JS version 15 or newer with the packages spe
 
 1. Copy `example.env` to `.env` and fill it with your credentials.
 2. Install the required Node JS packages:
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 3. Run:
-   ```bash
-   npm start
-   ```
+    ```bash
+    npm start
+    ```
 
 ### Docker
 
 1. Build:
-   ```bash
-   docker build -t musicplayer .
-   ```
+    ```bash
+    docker build -t musicplayer .
+    ```
 2. Run:
-   ```bash
-   docker run --env-file .env musicplayer
-   ```
+    ```bash
+    docker run --env-file .env musicplayer
+    ```
 
 ### Heroku
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/callsmusic/callsmusic2)
 
-- You can generate a string session [here](https://rojserbest.github.io/bssg).
+-   You can generate a string session [here](https://rojserbest.github.io/bssg).
 
 ## Commands
 
@@ -53,8 +53,8 @@ This bot needs a Linux system, Node JS version 15 or newer with the packages spe
 
 ## Credits
 
-- Roj Serbest
-- Andrew Lane ([TGCalls](https://github.com/tgcallsjs/tgcalls))
-- Painor ([GramJS](https://github.com/gram-js/gramjs))
-- Vitaly Domnikov ([Telegraf](https://github.com/telegraf/telegraf))
-- Lonami ([Telethon](https://github.com/lonami/telethon))
+-   Roj Serbest
+-   Andrew Lane ([TGCalls](https://github.com/tgcallsjs/tgcalls))
+-   Painor ([GramJS](https://github.com/gram-js/gramjs))
+-   Vitaly Domnikov ([Telegraf](https://github.com/telegraf/telegraf))
+-   Lonami ([Telethon](https://github.com/lonami/telethon))

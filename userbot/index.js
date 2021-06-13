@@ -4,10 +4,10 @@ const { Logger } = require("telegram/extensions");
 
 const config = require("../config");
 
-Logger.setLevel(config.logLevel || "none");
+Logger.setLevel(config.logLevel);
 
 const client = new TelegramClient(
-    new StringSession(config.stringSession || ""),
+    new StringSession(config.stringSession),
     config.apiId,
     config.apiHash,
     {

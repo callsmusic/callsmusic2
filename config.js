@@ -5,5 +5,5 @@ module.exports = {
     apiHash: process.env.API_HASH,
     stringSession: process.env.STRING_SESSION,
     botToken: process.env.BOT_TOKEN,
-    logLevel: process.env.LOG_LEVEL
+    logLevel: process.env.LOG_LEVEL || "none",
 };
