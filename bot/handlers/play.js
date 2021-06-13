@@ -3,7 +3,7 @@ const { createMessageLink, createUserLink, getFile } = require("../utils");
 const connections = require("../../connections");
 const ffmpeg = require("../../ffmpeg");
 const queues = require("../../queues");
-const { createImage } = require("../../image");
+const { generatePhoto } = require("../../image");
 
 const composer = new Composer();
 
@@ -12,20 +12,20 @@ async function playOrQueue(ctx) {
             ctx.message.reply_to_message.audio ||
             ctx.message.reply_to_message.voice,
         isVoice = !ctx.message.reply_to_message.voice,
-        text1 = isVoice ? "Voice" : media.title,
-        text2 = isVoice ? ctx.from.first_name : media.performer,
-        photo = new InputFile(await createImage("audio", { text1, text2 })),
+        title = isVoice ? "Voice" : media.title,
+        artist = isVoice ? ctx.from.first_name : media.performer,
+        photo = new InputFile(await generatePhoto("audio", { title, artist })),
         readable = ffmpeg(await getFile(ctx, media.file_id)),
         link = createMessageLink(
             ctx.message,
-            isVoice ? "a voice message" : escape(text2 + " - " + text1)
+            isVoice ? "a voice message" : escape(artist + " - " + title)
         );
     let caption;
 
     if (connections.playing(ctx.chat.id)) {
         const position = queues.push(ctx.chat.id, {
-            title: text1,
-            artist: text2,
+            title,
+            artist,
             readable,
         });
         caption =
