@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image</title>
+    <title>Generated image</title>
     <style>
       @font-face {
         font-family: "Poppins";
@@ -42,7 +42,7 @@
       .text1,
       .text2 {
         color: #fff;
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-weight: 400;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -60,7 +60,7 @@
     </style>
   </head>
   <body>
-    <svg viewBox="0 0 280 114" version="1.1" class="logo">
+    <svg viewBox="0 0 280 114" class="logo">
       <g transform="matrix(1.00009,0,0,1.00012,-36.2231,-21.2204)">
         <g transform="matrix(0.2,0,0,0.2,36.2197,34.0658)">
           <path
@@ -99,7 +99,6 @@
         "#432371",
         "#f13c77",
       ];
-
       document.body.style.backgroundColor =
         colors[Math.floor(Math.random() * colors.length)];
     </script>
