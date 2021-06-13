@@ -20,8 +20,7 @@ class Connections {
     }
 
     inCall(chatId) {
-        if (chatId in this.connections) return true;
-        else return false;
+        return !!this.connections[chatId];
     }
 
     playing(chatId) {

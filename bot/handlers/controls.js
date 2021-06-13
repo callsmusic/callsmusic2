@@ -6,14 +6,14 @@ const composer = new Composer();
 
 composer.command("resume", async (ctx) => {
     const result = connections.resume(ctx.chat.id);
-    if (result == 0) await ctx.reply("<b>▶️ Resumed</b>");
+    if (result === 0) await ctx.reply("<b>▶️ Resumed</b>");
     else if (result === 1) await ctx.reply("<b>❌ Not playing</b>");
     else if (result === 2) await ctx.reply("<b>❌ Not in call</b>");
 });
 
 composer.command("pause", async (ctx) => {
     const result = connections.pause(ctx.chat.id);
-    if (result == 0) await ctx.reply("<b>⏸ Paused</b>");
+    if (result === 0) await ctx.reply("<b>⏸ Paused</b>");
     else if (result === 1) await ctx.reply("<b>❌ Not playing</b>");
     else if (result === 2) await ctx.reply("<b>❌ Not in call</b>");
 });
