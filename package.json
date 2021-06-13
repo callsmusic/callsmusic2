@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node index.js"
     },
-    "author": "Roj Serbest",
+    "author": "Roj Serbest <rojserbest@icloud.com>",
     "dependencies": {
         "dotenv": "^8.2.0",
         "ejs": "^3.1.6",
