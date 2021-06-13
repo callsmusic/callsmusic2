@@ -28,5 +28,5 @@ module.exports.createImage = async (type, data) => {
     page.setContent(await getHtml(type, data));
     const screenshot = await page.screenshot();
     await browser.close();
-    return screenshot;
+    return screenshot.toString();
 };

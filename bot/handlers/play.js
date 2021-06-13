@@ -1,51 +1,44 @@
 const { Composer, InputFile } = require("grammy");
-const { escape } = require("html-escaper");
-const ffmpeg = require("../../ffmpeg");
+const { createMessageLink, createUserLink, getFile } = require("../utils");
 const connections = require("../../connections");
+const ffmpeg = require("../../ffmpeg");
 const queues = require("../../queues");
 const { createImage } = require("../../image");
-const { link, getFile } = require("../helpers");
 
 const composer = new Composer();
 
-composer.command("play", async (ctx) => {
-    const file =
+async function playOrQueue(ctx) {
+    const media =
             ctx.message.reply_to_message.audio ||
             ctx.message.reply_to_message.voice,
-        fileIsVoice = typeof ctx.message.reply_to_message.voice !== "undefined",
-        input = await getFile(ctx, file.file_id),
-        text1 = fileIsVoice ? "Voice" : file.title,
-        text2 = fileIsVoice ? ctx.from.first_name : file.performer,
-        image = await createImage("audio", { text1: text1, text2: text2 });
-    const readable = ffmpeg(input);
+        isVoice = !ctx.message.reply_to_message.voice,
+        text1 = isVoice ? "Voice" : media.title,
+        text2 = isVoice ? ctx.from.first_name : media.performer,
+        photo = new InputFile(await createImage("audio", { text1, text2 })),
+        readable = ffmpeg(await getFile(ctx, media.file_id)),
+        link = createMessageLink(
+            ctx.message,
+            isVoice ? "a voice message" : escape(text2 + " - " + text1)
+        );
+    let caption;
 
     if (connections.playing(ctx.chat.id)) {
         const position = queues.push(ctx.chat.id, {
             title: text1,
             artist: text2,
-            readable: readable,
+            readable,
         });
-
-        await ctx.replyWithPhoto(new InputFile(image), {
-            caption: `#️⃣ <b><a href="tg://user?id=${ctx.from.id}">${escape(
-                ctx.from.first_name
-            )}</> queued <a href="${link(ctx.message)}">${
-                fileIsVoice ? "a voice message" : escape(text2 + " - " + text1)
-            }</> at position ${position}...</>`,
-        });
+        caption =
+            `#\ufe0f\u20e3 ${createUserLink(ctx.from)} ` +
+            `queued ${link} at position ${position}`;
     } else {
-        await connections.setReadable(ctx.chat.id, readable);
-
-        await ctx.replyWithPhoto(new InputFile(image), {
-            caption: `▶️ <b><a href="tg://user?id${ctx.from.id}">${escape(
-                ctx.from.first_name
-            )}</> is now playing <a href="${link(ctx.message)}">${
-                fileIsVoice
-                    ? "a voice message"
-                    : escape(text2) + " - " + escape(text1)
-            }</></>...`,
-        });
+        caption =
+            `\u25b6\ufe0f ${createUserLink(ctx.from)}` +
+            `is now playing ${link}`;
     }
-});
 
+    await ctx.replyWithPhoto(photo, { caption });
+}
+
+composer.command("play", playOrQueue);
 module.exports = composer;
