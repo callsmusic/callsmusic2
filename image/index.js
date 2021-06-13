@@ -21,12 +21,14 @@ const getHtml = async (type, data) => {
     });
 };
 
-module.exports.createImage = async (type, data) => {
+async function createImage (type, data) {
     const browser = await newBrowser();
     const page = await browser.newPage();
-    page.setViewport({ width: 1280, height: 960 });
-    page.setContent(await getHtml(type, data));
+    await page.setViewport({ width: 1280, height: 960 });
+    await page.setContent(await getHtml(type, data));
     const screenshot = await page.screenshot();
     await browser.close();
     return screenshot.toString();
-};
+}
+
+exports.createImage = createImage
