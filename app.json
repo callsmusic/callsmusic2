@@ -1,6 +1,6 @@
 {
     "name": "Calls Music 2",
-    "description": "Telegram bot + userbot for streaming audio in group calls.",
+    "description": "Stream audio in Telegram group calls using gramjs and tgcallsjs",
     "keywords": ["telegram", "python"],
     "repository": "https://github.com/callsmusic/callsmusic2",
     "stack": "container",
