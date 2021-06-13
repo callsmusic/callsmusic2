@@ -1,8 +1,9 @@
 const { Api } = require("telegram");
 const { client } = require(".");
+
 const calls = {};
 
-module.exports.joinCall = async (chatId, params) => {
+async function joinCall(chatId, params) {
     if (!(chatId in calls)) {
         const fullChat = (
             await client.invoke(
@@ -39,13 +40,15 @@ module.exports.joinCall = async (chatId, params) => {
             )
         ).updates[0].call.params.data
     );
-};
+}
 
-module.exports.leaveCall = async (chatId) => {
+async function leaveCall(chatId) {
     if (chatId in calls) {
         await client.invoke(
             new Api.phone.LeaveGroupCall({ call: calls[chatId], source: 0 })
         );
         return true;
     } else return false;
-};
+}
+
+exports = { joinCall, leaveCall };
