@@ -1,7 +1,17 @@
-const { escape } = require("html-escaper");
 const config = require("../config");
 
 const createLink = (url, text) => `<a href="${url}">${escape(text)}</a>`;
+
+function escape(s, quote=true) {
+    s = s.replace("&", "&amp;")
+    s = s.replace('<', '&lt;')
+    s = s.replace('>', '&gt;')
+    if (quote) {
+        s = s.replace("\"", '&quot;')
+        s = s.replace("'", "&#x27;")
+    }
+    return s
+}
 
 function createUserLink(user) {
     return createLink(`tg://user?id=${user.id}`, user.first_name);

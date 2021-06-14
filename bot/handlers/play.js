@@ -1,5 +1,4 @@
 const { Composer, InputFile } = require("grammy");
-const { escape } = require("html-escaper");
 const { createMessageLink, createUserLink, getFile } = require("../utils");
 const connections = require("../../connections");
 const ffmpeg = require("../../ffmpeg");
@@ -19,7 +18,7 @@ async function playOrQueue(ctx) {
         readable = ffmpeg(await getFile(ctx, media.file_id)),
         link = createMessageLink(
             ctx.message,
-            isVoice ? "a voice message" : escape(artist + " - " + title)
+            isVoice ? "a voice message" : artist + " - " + title
         );
     let caption;
 
