@@ -28,7 +28,7 @@ async function generatePhoto(template, data) {
     await page.setContent(await getHtml(template, data));
     const screenshot = await page.screenshot();
     await browser.close();
-    return screenshot.toString();
+    return screenshot;
 }
 
 exports.generatePhoto = generatePhoto;
