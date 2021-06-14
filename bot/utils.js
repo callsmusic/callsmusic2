@@ -15,7 +15,7 @@ function createMessageLink(message, text) {
                       .toString()
                       .slice(3, message.chat.id.toString().length)
                 : message.chat.id) +
-            `/${ctx.message.message_id}`,
+            `/${message.message_id}`,
         text
     );
 }
