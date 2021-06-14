@@ -1,4 +1,4 @@
-# Calls Music 2 — Stream audio in Telegram calls using gramjs and tgcallsjs
+# Calls Music 2 — Stream audio in Telegram calls using GramJS and tgcallsjs
 
 ## Requirements
 

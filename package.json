@@ -1,7 +1,7 @@
 {
     "name": "callsmusic",
     "version": "1.1.2",
-    "description": "A Telegram bot to stream audio in calls using gramjs and tgcallsjs",
+    "description": "A Telegram bot to stream audio in calls using GramJS and tgcallsjs",
     "main": "index.js",
     "scripts": {
         "start": "node index.js"
