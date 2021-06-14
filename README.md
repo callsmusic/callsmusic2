@@ -1,4 +1,4 @@
-# Calls Music 2 — Telegram bot + userbot for streaming audio in group calls written in JavaScript
+# Calls Music 2 — Stream audio in Telegram calls using gramjs and tgcallsjs
 
 ## Requirements
 

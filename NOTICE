@@ -1,4 +1,4 @@
-Calls Music 2 - Telegram bot + userbot for streaming audio in group calls
+Calls Music 2 - A Telegram bot to stream audio in calls using gramjs and tgcallsjs
 Copyright (C) 2021 Roj Serbest
 
 Calls Music 2 is free software: you can redistribute it and/or modify
