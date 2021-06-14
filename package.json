@@ -1,6 +1,6 @@
 {
     "name": "callsmusic",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Stream audio in Telegram group calls using gramjs and tgcallsjs",
     "main": "index.js",
     "scripts": {
