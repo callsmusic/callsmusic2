@@ -36,7 +36,7 @@ async function playOrQueue(ctx) {
         caption =
             `\u25b6\ufe0f ${createUserLink(ctx.from)} ` +
             `is now playing ${link}`;
-        await connections.setReadable(ctx.chat.id, readable)
+        await connections.setReadable(ctx.chat.id, readable);
     }
 
     await ctx.replyWithPhoto(photo, { caption });
