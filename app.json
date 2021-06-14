@@ -3,7 +3,6 @@
     "description": "Stream audio in Telegram group calls using gramjs and tgcallsjs",
     "keywords": ["telegram", "python"],
     "repository": "https://github.com/callsmusic/callsmusic2",
-    "stack": "container",
     "env": {
         "STRING_SESSION": {
             "description": "A GramJS/Telethon string session. You can generate one at https://rojserbest.github.io/bssg.",
