@@ -53,7 +53,6 @@ This bot needs a Linux system, Node JS version 15 or newer with the packages spe
 
 ## Credits
 
--   Roj Serbest
 -   Andrew Lane ([TGCalls](https://github.com/tgcallsjs/tgcalls))
 -   Painor ([GramJS](https://github.com/gram-js/gramjs))
 -   Vitaly Domnikov ([Telegraf](https://github.com/telegraf/telegraf))
