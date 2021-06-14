@@ -1,4 +1,5 @@
 const { Composer, InputFile } = require("grammy");
+const { escape } = require("html-escaper");
 const { createMessageLink, createUserLink, getFile } = require("../utils");
 const connections = require("../../connections");
 const ffmpeg = require("../../ffmpeg");
