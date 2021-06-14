@@ -37,7 +37,7 @@ This bot needs a Linux system, Node JS version 15 or newer with the packages spe
 
 ## Commands
 
-| Command | Description                                          |
+| Command | Usage                                          |
 | ------- | ---------------------------------------------------- |
 | /play   | play the replied audio file                          |
 | /pause  | pause the audio stream                               |
