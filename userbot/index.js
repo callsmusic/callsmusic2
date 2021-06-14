@@ -24,4 +24,4 @@ async function start() {
     });
 }
 
-exports = { client, start };
+module.exports = { client, start };

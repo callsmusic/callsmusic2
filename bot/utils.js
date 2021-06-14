@@ -24,4 +24,4 @@ const getFile = async (ctx, fileId) =>
     "https://api.telegram.org/file/bot" +
     `${config.botToken}/${(await ctx.api.getFile(fileId)).file_path}`;
 
-exports = { createLink, createUserLink, createMessageLink, getFile };
+module.exports = { createLink, createUserLink, createMessageLink, getFile };

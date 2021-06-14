@@ -51,4 +51,4 @@ async function leaveCall(chatId) {
     } else return false;
 }
 
-exports = { joinCall, leaveCall };
+module.exports = { joinCall, leaveCall };
