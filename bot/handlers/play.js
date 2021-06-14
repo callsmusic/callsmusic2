@@ -11,7 +11,7 @@ async function playOrQueue(ctx) {
     const media =
             ctx.message.reply_to_message.audio ||
             ctx.message.reply_to_message.voice,
-        isVoice = !ctx.message.reply_to_message.voice,
+        isVoice = !!ctx.message.reply_to_message.voice,
         title = isVoice ? "Voice" : media.title,
         artist = isVoice ? ctx.from.first_name : media.performer,
         photo = new InputFile(await generatePhoto("audio", { title, artist })),
@@ -33,7 +33,7 @@ async function playOrQueue(ctx) {
             `queued ${link} at position ${position}`;
     } else {
         caption =
-            `\u25b6\ufe0f ${createUserLink(ctx.from)}` +
+            `\u25b6\ufe0f ${createUserLink(ctx.from)} ` +
             `is now playing ${link}`;
     }
 
