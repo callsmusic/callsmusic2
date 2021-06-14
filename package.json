@@ -11,8 +11,6 @@
         "dotenv": "^8.2.0",
         "ejs": "^3.1.6",
         "grammy": "^1.1.4",
-        "html-escaper": "^3.0.3",
-        "input": "^1.0.1",
         "node-pre-gyp": "^0.17.0",
         "puppeteer": "^10.0.0",
         "telegram": "^1.7.6",
