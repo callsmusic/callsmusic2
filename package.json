@@ -15,7 +15,7 @@
         "input": "^1.0.1",
         "node-pre-gyp": "^0.17.0",
         "puppeteer": "^10.0.0",
-        "telegram": "^1.5.1",
+        "telegram": "^1.7.6",
         "tgcalls": "^0.1.3"
     }
 }
