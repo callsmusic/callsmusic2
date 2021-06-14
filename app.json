@@ -20,5 +20,13 @@
             "description": "An app hash from https://my.telegram.org/apps.",
             "required": true
         }
-    }
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        },
+        {
+            "url": "heroku/nodejs"
+        }
+    ]
 }
