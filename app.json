@@ -1,7 +1,7 @@
 {
     "name": "Calls Music 2",
     "description": "Stream audio in Telegram group calls using gramjs and tgcallsjs",
-    "keywords": ["telegram", "python"],
+    "keywords": ["telegram", "music"],
     "repository": "https://github.com/callsmusic/callsmusic2",
     "env": {
         "STRING_SESSION": {
