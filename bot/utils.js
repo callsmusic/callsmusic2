@@ -3,13 +3,15 @@ const config = require("../config");
 const createLink = (url, text) => `<a href="${url}">${escape(text)}</a>`;
 
 function escape(s, quote = true) {
-    s = s.replace("&", "&amp;");
-    s = s.replace("<", "&lt;");
-    s = s.replace(">", "&gt;");
+    s = s.replaceAll("&", "&amp;");
+    s = s.replaceAll("<", "&lt;");
+    s = s.replaceAll(">", "&gt;");
+
     if (quote) {
-        s = s.replace('"', "&quot;");
-        s = s.replace("'", "&#x27;");
+        s = s.replaceAll('"', "&quot;");
+        s = s.replaceAll("'", "&#x27;");
     }
+
     return s;
 }
 

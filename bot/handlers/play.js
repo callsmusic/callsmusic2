@@ -29,12 +29,12 @@ async function playOrQueue(ctx) {
             readable,
         });
         caption =
-            `#\ufe0f\u20e3 ${createUserLink(ctx.from)} ` +
-            `queued ${link} at position ${position}`;
+            `<b>#\ufe0f\u20e3 ${createUserLink(ctx.from)} ` +
+            `queued ${link} at position ${position}</b>`;
     } else {
         caption =
-            `\u25b6\ufe0f ${createUserLink(ctx.from)} ` +
-            `is now playing ${link}`;
+            `<b>\u25b6\ufe0f ${createUserLink(ctx.from)} ` +
+            `is now playing ${link}</b>`;
         await connections.setReadable(ctx.chat.id, readable);
     }
 
