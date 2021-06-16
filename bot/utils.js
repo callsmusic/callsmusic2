@@ -8,8 +8,8 @@ function escape(s, quote = true) {
     s = s.replace(/>/g, "&gt;");
 
     if (quote) {
-        s = s.replaceAll('"', "&quot;");
-        s = s.replaceAll("'", "&#x27;");
+        s = s.replace(/"/g, "&quot;");
+        s = s.replace(/'/g, "&#x27;");
     }
 
     return s;
