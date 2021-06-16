@@ -1,0 +1,32 @@
+{
+    "name": "Calls Music 2",
+    "description": "Stream audio in Telegram group calls using GramJS and tgcallsjs",
+    "keywords": ["telegram", "music"],
+    "repository": "https://github.com/callsmusic/callsmusic2",
+    "env": {
+        "STRING_SESSION": {
+            "description": "A GramJS/Telethon string session. You can generate one at https://rojserbest.github.io/bssg.",
+            "required": true
+        },
+        "BOT_TOKEN": {
+            "description": "A bot token from @BotFather.",
+            "required": true
+        },
+        "API_ID": {
+            "description": "An app ID from https://my.telegram.org/apps.",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "An app hash from https://my.telegram.org/apps.",
+            "required": true
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        },
+        {
+            "url": "heroku/nodejs"
+        }
+    ]
+}
