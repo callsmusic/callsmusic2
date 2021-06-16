@@ -3,9 +3,9 @@ const config = require("../config");
 const createLink = (url, text) => `<a href="${url}">${escape(text)}</a>`;
 
 function escape(s, quote = true) {
-    s = s.replaceAll("&", "&amp;");
-    s = s.replaceAll("<", "&lt;");
-    s = s.replaceAll(">", "&gt;");
+    s = s.replace(/&/g, "&amp;");
+    s = s.replace(/</g, "&lt;");
+    s = s.replace(/>/g, "&gt;");
 
     if (quote) {
         s = s.replaceAll('"', "&quot;");
