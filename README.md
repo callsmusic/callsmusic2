@@ -1,3 +1,7 @@
+# Notice
+
+This project is unmaintained. If you’re looking for an alternative, see [Remix](https://github.com/callsmusic/remix).
+
 # Calls Music 2 — Stream audio in Telegram calls using GramJS and tgcallsjs
 
 ## Requirements
